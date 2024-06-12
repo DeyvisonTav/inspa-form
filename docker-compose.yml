@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  db:
+    image: bitnami/postgresql:latest
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: inspa-form
+    ports:
+      - 5432:5432
