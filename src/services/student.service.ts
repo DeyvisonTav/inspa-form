@@ -7,6 +7,12 @@ export class StudentService {
   constructor(private prisma: PrismaService) {}
 
   async createStudent(data: CreateStudentDto) {
+    const emailExists = await this.prisma.student.findUnique({
+      where: { email: data.email },
+    });
+    if (emailExists) {
+      throw new Error('Este e-mail ja existe na nossa base de dados');
+    }
     const student = await this.prisma.student.create({
       data: {
         about: data.about,
