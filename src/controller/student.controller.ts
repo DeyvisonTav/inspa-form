@@ -17,7 +17,7 @@ import { ZodValidationPipe } from '../dto/pipe.zod';
 @ApiTags('students')
 @Controller('students')
 export class StudentController {
-  constructor(private readonly studentService: StudentService) {}
+  constructor(private studentService: StudentService) {}
 
   @ApiOperation({ summary: 'Create student' })
   @ApiResponse({
@@ -25,9 +25,9 @@ export class StudentController {
     description: 'The student has been successfully created.',
   })
   @ApiResponse({ status: 400, description: 'Invalid input.' })
+  @UsePipes(new ZodValidationPipe(CreateStudentSchema))
   @ApiBody({ type: CreateStudentSwaggerDto })
   @Post()
-  @UsePipes(new ZodValidationPipe(CreateStudentSchema))
   async create(@Body() createStudentDto: CreateStudentDto) {
     return this.studentService.createStudent(createStudentDto);
   }
@@ -54,8 +54,8 @@ export class StudentController {
   })
   @ApiResponse({ status: 404, description: 'Student not found.' })
   @ApiBody({ type: CreateStudentSwaggerDto })
-  @Patch(':id')
   @UsePipes(new ZodValidationPipe(CreateStudentSchema))
+  @Patch(':id')
   async update(@Param('id') id: string, @Body() data: CreateStudentDto) {
     return this.studentService.updateStudent(id, data);
   }

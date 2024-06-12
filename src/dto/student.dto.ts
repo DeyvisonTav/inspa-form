@@ -1,18 +1,20 @@
 import { z } from 'zod';
 
-export const CreateStudentSchema = z.object({
-  fullName: z.string().min(1, 'Full name is required'),
-  email: z.string().email('Invalid email address'),
-  phone: z.string().min(1, 'Phone number is required'),
-  street: z.string().min(1, 'Street is required'),
-  city: z.string().min(1, 'City is required'),
-  state: z.string().min(1, 'State is required'),
-  postalCode: z.string().min(1, 'Postal code is required'),
-  about: z.string().min(1, 'About section is required'),
-  interest: z.string().min(1, 'Interest is required'),
-});
+export const CreateStudentSchema = z
+  .object({
+    fullName: z.string().min(1, 'Full name is required'),
+    email: z.string().email('Invalid email address'),
+    phone: z.string().min(1, 'Phone number is required'),
+    street: z.string().min(1, 'Street is required'),
+    city: z.string().min(1, 'City is required'),
+    state: z.string().min(1, 'State is required'),
+    postalCode: z.string().min(1, 'Postal code is required'),
+    about: z.string().min(1, 'About section is required'),
+    interest: z.string().min(1, 'Interest is required'),
+  })
+  .required();
 
-export type CreateStudentDto = z.infer<typeof CreateStudentSchema>;
+export type CreateStudentDto = z.TypeOf<typeof CreateStudentSchema>;
 
 import { ApiProperty } from '@nestjs/swagger';
 
